@@ -66,6 +66,40 @@ final class RP_WCDPD_GitHub_Updater
 
         // Override WordPress.org Plugin Install API
         add_filter('plugins_api', array($this, 'plugin_info'), 10, 3);
+
+        // Force-enable automatic updates for this plugin
+        add_filter('auto_update_plugin', array($this, 'enable_auto_updates'), 10, 2);
+    }
+
+    /**
+     * Force-enable automatic updates for this plugin
+     *
+     * WordPress evaluates this filter during the automatic updater run and
+     * uses it to decide whether a plugin should be updated automatically.
+     * Returning true for this plugin ensures updates are installed without
+     * requiring the site admin to manually toggle auto-updates on.
+     *
+     * @access public
+     * @param bool $update
+     * @param object $item
+     * @return bool
+     */
+    public function enable_auto_updates($update, $item)
+    {
+
+        // Item is the plugin data object (WordPress 5.5+)
+        if (is_object($item) && isset($item->plugin)) {
+            if ($item->plugin === $this->plugin_basename) {
+                return true;
+            }
+        }
+        // Legacy: item may be passed as the plugin basename string
+        else if (is_string($item) && $item === $this->plugin_basename) {
+            return true;
+        }
+
+        // Not our plugin - do not interfere
+        return $update;
     }
 
     /**

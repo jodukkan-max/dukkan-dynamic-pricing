@@ -1,3 +1,7 @@
+Version 1.0.2, 05 September 2026
+------------------------------------------------------------------------------------
+* Force-enable automatic updates for the plugin so new GitHub releases install automatically
+
 Version 1.0.1, 05 September 2026
 ------------------------------------------------------------------------------------
 * Changed shop display prices default to 'Include all adjustment types' and enabled auto-add free product to cart
