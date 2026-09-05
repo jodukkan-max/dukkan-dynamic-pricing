@@ -11,7 +11,7 @@
  * Text Domain: rp_wcdpd
  * Domain Path: /languages
  *
- * Version: 1.0.0
+ * Version: 1.0.1
  *
  * Requires at least: 4.0
  * Tested up to: 6.9
@@ -39,7 +39,7 @@ define('RP_WCDPD_ADMIN_CAPABILITY', 'manage_woocommerce');
 define('RP_WCDPD_SUPPORT_PHP', '7.2');
 define('RP_WCDPD_SUPPORT_WP', '4.0');
 define('RP_WCDPD_SUPPORT_WC', '3.0');
-define('RP_WCDPD_VERSION', '1.0.0');
+define('RP_WCDPD_VERSION', '1.0.1');
 
 // Load main plugin class
 require_once 'rp_wcdpd.class.php';

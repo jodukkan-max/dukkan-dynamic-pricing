@@ -333,7 +333,7 @@ class RP_WCDPD_Settings
                                 'product_pricing_change_display_prices' => array(
                                     'title'     => esc_html__('Change display prices in shop', 'rp_wcdpd'),
                                     'type'      => 'select',
-                                    'default'   => '0',
+                                    'default'   => 'change_all',
                                     'required'  => true,
                                     'options'   => array(
                                         '0'             => esc_html__('Do not change', 'rp_wcdpd'),
@@ -357,7 +357,7 @@ class RP_WCDPD_Settings
                                 'product_pricing_bxgyf_auto_add' => array(
                                     'title'     => esc_html__('Automatically add free product to cart', 'rp_wcdpd'),
                                     'type'      => 'checkbox',
-                                    'default'   => '0',
+                                    'default'   => '1',
                                     'hint'      => esc_html__('This only works with Buy X Get Y rules when all properties of a free product are known - specific product or specific variation must be selected.', 'rp_wcdpd'),
                                 ),
                                 'product_pricing_display_regular_price' => array(
