@@ -1,3 +1,7 @@
+Version 1.0.3, 06 September 2026
+------------------------------------------------------------------------------------
+* Fix - Variable products now show marked-up regular price with strikethrough sale price when percentage fee + discount rules apply
+
 Version 1.0.2, 05 September 2026
 ------------------------------------------------------------------------------------
 * Force-enable automatic updates for the plugin so new GitHub releases install automatically

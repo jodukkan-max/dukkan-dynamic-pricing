@@ -86,6 +86,45 @@ class RP_WCDPD_Product_Price_Shop
 
         // Maybe change prices in the backend
         add_filter('rightpress_product_price_shop_change_prices_in_backend', array($this, 'maybe_change_prices_in_backend'), $this->rightpress_hook_position, 4);
+
+        // Mark discounted variable products as on sale so WooCommerce shows a
+        // strikethrough regular price on shop pages
+        add_filter('woocommerce_product_is_on_sale', array($this, 'maybe_mark_variable_product_on_sale'), 20, 2);
+    }
+
+    /**
+     * Mark variable product on sale when percentage rules produced a sale price
+     *
+     * Variable products are skipped by the price router, so WooCommerce decides
+     * whether to show a sale price using its own is_on_sale() logic, which only
+     * returns true when the sale_price array strictly equals the price array.
+     * Force the flag when the plugin has produced a price lower than the regular
+     * price.
+     *
+     * @access public
+     * @param bool $on_sale
+     * @param object $product
+     * @return bool
+     */
+    public function maybe_mark_variable_product_on_sale($on_sale, $product)
+    {
+
+        if ($product->is_type('variable') && RP_WCDPD_Settings::get('product_pricing_change_display_prices')) {
+
+            $prices = RightPress_Product_Price_Shop::get_visible_variations_prices($product);
+
+            if (!empty($prices['price']) && !empty($prices['regular_price'])) {
+
+                $prices['price']         = array_filter($prices['price'], 'is_numeric');
+                $prices['regular_price'] = array_filter($prices['regular_price'], 'is_numeric');
+
+                if (!empty($prices['price']) && !empty($prices['regular_price'])) {
+                    return RightPress_Product_Price::price_is_smaller_than(min($prices['price']), min($prices['regular_price']));
+                }
+            }
+        }
+
+        return $on_sale;
     }
 
     /**

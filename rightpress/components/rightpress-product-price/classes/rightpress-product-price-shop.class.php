@@ -289,6 +289,15 @@ final class RightPress_Product_Price_Shop
                         }
                     }
                 }
+
+                // Align the sale_price array with the price array for variations the
+                // plugin has discounted, so WooCommerce's native is_on_sale() check
+                // (which requires sale_price to strictly equal price) passes.
+                foreach ($prices['price'] as $variation_id => $price) {
+                    if (isset($prices['regular_price'][$variation_id]) && $prices['regular_price'][$variation_id] !== '' && $price !== '' && (float) $price < (float) $prices['regular_price'][$variation_id]) {
+                        $prices['sale_price'][$variation_id] = $price;
+                    }
+                }
             }
         }
 
