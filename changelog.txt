@@ -1,3 +1,7 @@
+Version 1.0.4, 14 September 2026
+------------------------------------------------------------------------------------
+* Fix - Prevent fatal error in the admin products list (null WC cart) by limiting variable-product on-sale detection to the storefront
+
 Version 1.0.3, 06 September 2026
 ------------------------------------------------------------------------------------
 * Fix - Variable products now show marked-up regular price with strikethrough sale price when percentage fee + discount rules apply

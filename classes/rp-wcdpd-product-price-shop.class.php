@@ -109,6 +109,13 @@ class RP_WCDPD_Product_Price_Shop
     public function maybe_mark_variable_product_on_sale($on_sale, $product)
     {
 
+        // Only relevant on the storefront. In admin (e.g. the products list
+        // table) the WooCommerce cart is not loaded, so running the price test
+        // would call WC()->cart->generate_cart_id() on a null object and error.
+        if (!RightPress_Help::is_request('frontend') || !is_a(WC()->cart, 'WC_Cart') || !did_action('woocommerce_cart_loaded_from_session')) {
+            return $on_sale;
+        }
+
         if ($product->is_type('variable') && RP_WCDPD_Settings::get('product_pricing_change_display_prices')) {
 
             $prices = RightPress_Product_Price_Shop::get_visible_variations_prices($product);
